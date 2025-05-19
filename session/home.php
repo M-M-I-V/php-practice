@@ -14,7 +14,7 @@
     <title>Home Page</title>
 </head>
 <body>
-    <form action="home.php" method="GET">
+    <form action="home.php" method="POST">
         <input type="submit" name="logout" value="Log out">
     </form>
 </body>
@@ -22,7 +22,7 @@
 
 <?php
 
-    if(isset($_GET["logout"])) {
+    if(isset($_POST["logout"])) {
         session_destroy();
         header("Location: index.php");
 
