@@ -16,8 +16,9 @@
 
 <?php
 
-    if($_SERVER["REQUEST_METHOD" == "POST"]) {
-        echo "Hello, {$_POST["username"]}<br>";
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+        echo "Hello, {$username}<br>";
     }
 
 ?>
