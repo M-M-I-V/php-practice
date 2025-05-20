@@ -1,3 +1,9 @@
+<?php
+
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +12,9 @@
     <title>Hashing</title>
 </head>
 <body>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
+    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <label>username</label>
-        <input type="text" name=""><br>
+        <input type="text" name="username"><br>
         <label>password</label>
         <input type="password" name="password"><br>
         <input type="submit" name="login" value="Log in"><br><br>
@@ -18,21 +24,23 @@
 
 <?php
 
+    $storedPassword = "password123";
+    $hashedPassword = password_hash($storedPassword, PASSWORD_DEFAULT);
+
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-        $inputedPassword = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-        $storedPassword = "password123";
-        $hashedPassword = password_hash($storedPassword, PASSWORD_DEFAULT);
+        $_SESSION["username"] = $username;
+        $inputtedPassword = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if(!empty($username) && !empty($inputedPassword)) {
-            if(password_verify($inputedPassword, $hashedPassword)) {
-            header("Location: home.php");
+        if(!empty($username) && !empty($inputtedPassword)) {
+            if(password_verify($inputtedPassword, $hashedPassword)) {
+                header("Location: home.php");
 
             } else {
                 echo "Incorrect username or password.";
 
             }
-            
+
         } else {
             echo "Please input your username or password";
 

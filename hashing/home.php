@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    echo "Welcome, {$username}!<br><br>";
+    echo "Welcome, {$_SESSION["username"]}!<br><br>";
 
 ?>
 
@@ -24,6 +24,7 @@
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         session_destroy();
         header("Location: index.php");
+        exit();
 
     }
 
