@@ -35,6 +35,7 @@
         if(!empty($username) && !empty($inputtedPassword)) {
             if(password_verify($inputtedPassword, $hashedPassword)) {
                 header("Location: home.php");
+                exit();
 
             } else {
                 echo "Incorrect username or password.";
